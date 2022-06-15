@@ -1,24 +1,8 @@
-COMPUTER_NAME="Neo"
+COMPUTER_NAME="Bishwendu"
 LANGUAGES=(en nl)
 LOCALE="en_US@currency=EUR"
 MEASUREMENT_UNITS="Centimeters"
 SCREENSHOTS_FOLDER="${HOME}/Screenshots"
-
-# Topics
-#
-# - Computer & Host name
-# - Localization
-# - System
-# - Keyboard & Input
-# - Trackpad, mouse, Bluetooth accessories
-# - Screen
-# - Finder
-# - Dock
-# - Mail
-# - Calendar
-# - Terminal
-# - Activity Monitor
-# - Software Updates
 
 osascript -e 'tell application "System Preferences" to quit'
 
@@ -43,24 +27,16 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 ###############################################################################
 
 # Set language and text formats
+defaults write NSGlobalDomain AppleLanguages -array "en" "nl"
+defaults write NSGlobalDomain AppleLocale -string "en_US@currency=INR"
+defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleLanguages -array ${LANGUAGES[@]}
 defaults write NSGlobalDomain AppleLocale -string "$LOCALE"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "$MEASUREMENT_UNITS"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
-# Using systemsetup might give Error:-99, can be ignored (commands still work)
-# systemsetup manpage: https://ss64.com/osx/systemsetup.html
-
-# Set the time zone
-sudo defaults write /Library/Preferences/com.apple.timezone.auto Active -bool YES
-sudo systemsetup -setusingnetworktime on
-
-###############################################################################
-# System                                                                      #
-###############################################################################
-
-# Restart automatically if the computer freezes (Error:-99 can be ignored)
-sudo systemsetup -setrestartfreeze on 2> /dev/null
+# Set the timezone (see `sudo systemsetup -listtimezones` for other values)
+sudo systemsetup -settimezone "India/Hyderabad" > /dev/null
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
@@ -230,7 +206,7 @@ defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
 defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 # Use AirDrop over every interface.
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+# defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Always open everything in Finder's list view.
 # Use list view in all Finder windows by default
@@ -276,40 +252,40 @@ defaults write com.Apple.Dock show-recents -bool false
 # Mail                                                                        #
 ###############################################################################
 
-# Display emails in threaded mode
-defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
+# # Display emails in threaded mode
+# defaults write com.apple.mail DraftsViewerAttributes -dict-add "DisplayInThreadedMode" -string "yes"
 
-# Disable send and reply animations in Mail.app
-defaults write com.apple.mail DisableReplyAnimations -bool true
-defaults write com.apple.mail DisableSendAnimations -bool true
+# # Disable send and reply animations in Mail.app
+# defaults write com.apple.mail DisableReplyAnimations -bool true
+# defaults write com.apple.mail DisableSendAnimations -bool true
 
-# Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+# # Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
+# defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
-# Disable inline attachments (just show the icons)
-defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
+# # Disable inline attachments (just show the icons)
+# defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 
-# Disable automatic spell checking
-defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
+# # Disable automatic spell checking
+# defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
 
-# Disable sound for incoming mail
-defaults write com.apple.mail MailSound -string ""
+# # Disable sound for incoming mail
+# defaults write com.apple.mail MailSound -string ""
 
-# Disable sound for other mail actions
-defaults write com.apple.mail PlayMailSounds -bool false
+# # Disable sound for other mail actions
+# defaults write com.apple.mail PlayMailSounds -bool false
 
-# Mark all messages as read when opening a conversation
-defaults write com.apple.mail ConversationViewMarkAllAsRead -bool true
+# # Mark all messages as read when opening a conversation
+# defaults write com.apple.mail ConversationViewMarkAllAsRead -bool true
 
-# Disable includings results from trash in search
-defaults write com.apple.mail IndexTrash -bool false
+# # Disable includings results from trash in search
+# defaults write com.apple.mail IndexTrash -bool false
 
-# Automatically check for new message (not every 5 minutes)
-defaults write com.apple.mail AutoFetch -bool true
-defaults write com.apple.mail PollTime -string "-1"
+# # Automatically check for new message (not every 5 minutes)
+# defaults write com.apple.mail AutoFetch -bool true
+# defaults write com.apple.mail PollTime -string "-1"
 
-# Show most recent message at the top in conversations
-defaults write com.apple.mail ConversationViewSortDescending -bool true
+# # Show most recent message at the top in conversations
+# defaults write com.apple.mail ConversationViewSortDescending -bool true
 
 ###############################################################################
 # Calendar                                                                    #
@@ -325,13 +301,13 @@ defaults write com.apple.iCal "first day of week" -int 1
 # Terminal                                                                    #
 ###############################################################################
 
-# Only use UTF-8 in Terminal.app
-defaults write com.apple.terminal StringEncodings -array 4
+# # Only use UTF-8 in Terminal.app
+# defaults write com.apple.terminal StringEncodings -array 4
 
-# Appearance
-defaults write com.apple.terminal "Default Window Settings" -string "Pro"
-defaults write com.apple.terminal "Startup Window Settings" -string "Pro"
-defaults write com.apple.Terminal ShowLineMarks -int 0
+# # Appearance
+# defaults write com.apple.terminal "Default Window Settings" -string "Pro"
+# defaults write com.apple.terminal "Startup Window Settings" -string "Pro"
+# defaults write com.apple.Terminal ShowLineMarks -int 0
 
 ###############################################################################
 # Activity Monitor                                                            #
@@ -355,22 +331,22 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 ###############################################################################
 
 # Enable the automatic update check
-defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+# defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
 
-# Check for software updates weekly (`dot update` includes software updates)
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -string 7
+# Check for software updates daily, not just once per week
+# defaults write com.apple.SoftwareUpdate ScheduleFrequency -bool true
 
 # Download newly available updates in background
-defaults write com.apple.SoftwareUpdate AutomaticDownload -bool true
+# defaults write com.apple.SoftwareUpdate AutomaticDownload -bool true
 
 # Install System data files & security updates
-defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
+# defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
 
 # Turn on app auto-update
-defaults write com.apple.commerce AutoUpdate -bool true
+# defaults write com.apple.commerce AutoUpdate -bool true
 
 # Allow the App Store to reboot machine on macOS updates
-defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
+# defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
 
 ###############################################################################
 # Kill affected applications                                                  #
