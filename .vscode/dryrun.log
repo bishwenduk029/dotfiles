@@ -1,0 +1,31 @@
+make: Entering directory `/Users/kundb/.dotfiles'
+sudo -v
+while true; do sudo -n true; sleep 60; kill -0 "$" || exit; done 2>/dev/null &
+ 
+is-executable brew || curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash
+if ! grep -q /usr/local/bin/bash /private/etc/shells; then \
+		/usr/local/bin/brew install bash bash-completion@2 pcre && \
+		sudo append /usr/local/bin/bash /private/etc/shells && \
+		chsh -s /usr/local/bin/bash; \
+	fi
+brew install git git-extras
+brew bundle --file=/Users/kundb/.dotfiles/install/Brewfile || true
+fnm install --lts
+brew install ruby
+brew install rust
+brew bundle --file=/Users/kundb/.dotfiles/install/Caskfile || true
+for EXT in $(cat install/Codefile); do code --install-extension $EXT; done
+xattr -d -r com.apple.quarantine ~/Library/QuickLook
+ 
+eval $(fnm env); npm install -g fast-cli fkill-cli get-port-cli gtop local-web-server nodemon npm npm-check prettier release-it svgo tldr underscore-cli yarn @asyncapi/generator
+ 
+cargo install dum jless
+ 
+is-executable stow || brew install stow
+for FILE in $(\ls -A runcom); do if [ -f /Users/kundb/$FILE -a ! -h /Users/kundb/$FILE ]; then \
+		mv -v /Users/kundb/$FILE{,.bak}; fi; done
+mkdir -p /Users/kundb/.config
+stow -t /Users/kundb runcom
+stow -t /Users/kundb/.config config
+make: Leaving directory `/Users/kundb/.dotfiles'
+ 

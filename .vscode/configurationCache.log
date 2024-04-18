@@ -1,0 +1,1 @@
+{"buildTargets":["all","bash","brew","brew-packages","cask-apps","core-linux","core-macos","git","link","linux","macos","node-packages","npm","packages","ruby","rust","rust-packages","stow-linux","stow-macos","sudo","test","unlink"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
